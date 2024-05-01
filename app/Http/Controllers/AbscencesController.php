@@ -98,7 +98,7 @@ class AbscencesController extends Controller
         $absence = Absence::findOrFail($id);
 
         // Mettre à jour les attributs de l'absence
-        $absence->update($validatedData);
+        $absence=$absence->update($validatedData);
 
         // Redirection avec un message de succès
         return redirect()->route('absences.index')->with('success', 'Absence mise à jour avec succès.');

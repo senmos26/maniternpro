@@ -27,14 +27,14 @@
                                     <canvas id="myChart" style="width:100%;max-width:600px;height: 98%"></canvas>
 
                                     <script>
-                                        var xValues = ["Stagiaires", "Etablissements", "Attestations", "U", "Argentina"];
-                                        var yValues = [55, 49, 44, 24, 15];
+                                        var xValues = ["Stagiaires", "Etablissements", "Attestations", "Absences", ];
+                                        var yValues = [{{$nbrsta}}, {{$nbrets}}, {{$nbrattes}}, {{$nbrabs}}, ];
                                         var barColors = [
                                             "#b91d47",
                                             "#00aba9",
                                             "#2b5797",
                                             "#e8c3b9",
-                                            "#1e7145"
+
                                         ];
 
                                         new Chart("myChart", {
@@ -55,7 +55,7 @@
                             <div class="col-span-2 pt-5">
                                 <div class="grid grid-cols-3 gap-4">
                                     <!-- Première ligne -->
-                                    <a class="ok  bg-gray-200" href="{{route("Stages")}}">
+                                    <a class="ok  bg-gray-200" href="{{route("stagiaires.stage")}}">
                                         <div class="m-4">
                                             <p class="text-4xl font-semibold">Stages</p>
                                             <p class="text-6xl mt-2 chiffre">{{$nbrsta}}</p>

@@ -11,7 +11,7 @@
             <nav class="navside">
                 <a href="{{ route('dashboard') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('dashboard') ? 'active' : '' }}">Dashboard</a>
                 <a href="{{ route('Stagiaires') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('Stagiaires') ? 'active' : '' }}">Stagiaires</a>
-                <a href="{{ route('Stages') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('Stages') ? 'active' : '' }}">Stages</a>
+                <a href="{{ route('stagiaires.stage') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('stagiaires.stage') ? 'active' : '' }}">Stages</a>
                 <a href="{{ route('absences.index') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('absences.index') ? 'active' : '' }}">Abscences</a>
                 <a href="{{ route('Attestations') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('Attestations') ? 'active' : '' }}">Attestations</a>
                 <a href="{{ route('Etablissements') }}" class="block py-2 px-4 text-gray-400 ahov {{ request()->routeIs('Etablissements') ? 'active' : '' }}">Etablissements</a>
@@ -61,21 +61,23 @@
                                             <tr>
                                                 <td class="border border-gray-200 px-4 py-2">{{ $etablissement->nom }}</td>
                                                 <td class="border border-gray-200 px-4 py-2">{{ $etablissement->adresse }}</td>
-                                                <td>
+                                                <td class="border border-gray-200 px-4 py-2 flex items-center">
                                                     <form action="{{ route('etablissements.destroy', $etablissement->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet établissement ?')">
+                                                        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet établissement ?')" class="inline-flex items-center">
                                                             <img src="{{ asset('icon/delete.png') }}" alt="Supprimer" class="action-icon" width="20">
                                                         </button>
                                                     </form>
                                                     <form action="{{ route('etablissements.edit', $etablissement->id) }}" method="GET">
-                                                        <button type="submit">
+                                                        <button type="submit" class="inline-flex items-center ml-2">
                                                             <img src="{{ asset('icon/edit.png') }}" alt="Modifier" class="action-icon" width="20">
                                                         </button>
                                                     </form>
                                                 </td>
                                             </tr>
+
+
                                         @endforeach
                                         </tbody>
                                     </table>

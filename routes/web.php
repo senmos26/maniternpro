@@ -66,11 +66,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/Stagiaires',[\App\Http\Controllers\StagiaireController::class,'index']
     )->name('Stagiaires') ;
 
-    Route::get('/Stages',
-        [\App\Http\Controllers\StagesController::class,'index']
-    )->name('Stages') ;
-    Route::get('/stages/create',[\App\Http\Controllers\stagesController::class,'create'])->name('stages.create');
-    Route::post('/stage/store',[\App\Http\Controllers\stagesController::class,'store'])->name('stages.store');
+    Route::post('/stages/store',[\App\Http\Controllers\StagesController::class,'store'])->name('stages.store');
+    Route::get('/stage',[\App\Http\Controllers\StagesController::class,'index'])->name('stagiaires.stage');
+    Route::get('/stages/create',[\App\Http\Controllers\StagesController::class,'create'])->name('stages.create');
+    Route::delete('/stages/{id}', [\App\Http\Controllers\StagesController::class, 'destroy'])->name('stages.destroy');
+    Route::get('/stages/{id}/edit', [\App\Http\Controllers\StagesController::class, 'edit'])->name('stages.edit');
+    Route::put('/stages/{id}', [\App\Http\Controllers\StagesController::class, 'update'])->name('stages.update');
+
 
     Route::get('/Attestations',[\App\Http\Controllers\AttestationController::class,'index'])->name('Attestations') ;
 

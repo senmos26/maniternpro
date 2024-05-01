@@ -16,17 +16,18 @@
                             @method('PUT')
                             <div class="mb-4">
                                 <label for="stagiaire" class="block text-gray-700 text-sm font-bold mb-2">Stagiaire :</label>
-                                <input id="stagiaire" name="stagiaire_id" class="form-input @error('stagiaire') border-red-500 @enderror" list="stagiaires" placeholder="Sélectionez le stagiaire">
-                                <datalist id="stagiaires">
+                                <select id="stagiaire_id" name="stagiaire_id" class="form-select @error('stagiaire_id') border-red-500 @enderror">
                                     @foreach($stagiaires as $stagiaire)
                                         <option value="{{ $stagiaire->id }}" {{ old('stagiaire_id', $absence->stagiaire_id) == $stagiaire->id ? 'selected' : '' }}>
-                                            {{ $stagiaire->nom }} {{$stagiaire->prenom}}
+                                            {{ $stagiaire->nom }} {{ $stagiaire->prenom }}
                                         </option>
                                     @endforeach
-                                </datalist>
-                                @error('stagiaire')
+                                </select>
+
+                                @error('stagiaire_id')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
+
                             </div>
 
 
