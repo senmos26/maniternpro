@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.ok{
+    height: 150px;
+    background: rgba(51, 173, 110, 0.26);
+    border-radius: 10px;
+    transition: all 3ms;
+}
+.ok:hover{
+    background: #ffffff;
+    transform: scale(1,1);
+    border: 2px solid #86d086;
+}
+.chiffre{
+    color: #00a551;
+}
+.navside{
+    background: rgba(0, 165, 81, 0.09);
+    padding: 60px 0 200px 0;
+    margin: 5px;
+    border-radius: 5px;
+}
+.sidebar{
+    border-right: 2px solid rgba(0, 165, 81, 0.49);
+}
+.ahov:hover{
+    background: rgba(30, 183, 105, 0.82);
+    color: #ffffff;
+}
+.active{
+    background: rgba(30, 183, 105, 0.82);
+    color: #ffffff;
+}
+.tr:hover{
+    background: rgba(0, 165, 81, 0.49) ;
+}
+.ic:hover{
+    background: rgba(0, 165, 81, 0.79);
+
+
+}
+.ic{
+    margin-top: 20px;
+}

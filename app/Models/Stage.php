@@ -9,4 +9,8 @@ class Stage extends Model
 {
     use HasFactory;
     protected $fillable = ['titre_sujet', 'statut', 'date_debut', 'date_fin'];
+    public function bureau()
+    {
+        return $this->belongsTo(Bureau::class);
+    }
 }
