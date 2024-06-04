@@ -43,23 +43,3 @@
 .ic{
     margin-top: 20px;
 }
-.text-container {
-     /* Centrer le texte horizontalement */
-}
-
-.text-container p {
-    margin-bottom: 10px; /* Ajouter un espace entre chaque paragraphe */
-}
-
-.text-container .primary-text {
-    color: #007bff; /* Couleur bleue */
-    font-size: 2.5rem; /* Taille de police */
-    font-weight: 600; /* Gras */
-
-}
-
-.text-container .secondary-text {
-    color: #333; /* Couleur de texte normale */
-    font-size: 1.7rem; /* Taille de police */
-    font-weight: 500; /* Normal */
-}

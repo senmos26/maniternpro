@@ -33,6 +33,7 @@
                                         <th class="py-2 px-4 active">Statut</th>
                                         <th class="py-2 px-4 active">Imprimer<br>l'attestation</th>
                                         <th class="py-2 px-4 active">Date de Prise</th>
+                                        <th class="py-2 px-4 active">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -59,6 +60,13 @@
                                                 </a>
                                             </td>
                                             <td class="py-2 px-4 text-center">{{ $attestation->date_prise }}</td>
+                                            <td>
+                                                <form  method="post" style="display: inline;"  action="{{ route('attestations.destroy', $attestation->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="button-reset"><img src="{{ asset('icon/delete.png') }}" alt="Supprimer" class="h-6 w-6 ic" onclick="return confirm('Etes vous sûr de vouloir supprimer?')"></button>
+                                                </form>|
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

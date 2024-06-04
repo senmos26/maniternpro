@@ -17,11 +17,20 @@
 
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="">
-                                    <p class="text-3xl md:text-4xl font-semibold">Gérer vos stages</p><br>
-                                    <p class="text-3xl md:text-4xl font-semibold">avec manitern</p><br>
-                                    <p class="text-3xl md:text-4xl font-semibold">dans une application de gestion de stages.</p>
+                                <div class="text-container">
+                                    <div>
+                                        <span class="primary-text">Gérer vos stages</span>
+                                    </div>
+
+                                    <div>
+                                        <span class="primary-text">avec Manitern</span>
+                                    </div>
+                                    <div>
+                                        <span class="secondary-text">dans une application de gestion de stages.</span>
+                                    </div>
+
                                 </div>
+
 
                                 <div class="p-4">
                                     <canvas id="myChart" style="width:100%;max-width:600px;height: 98%"></canvas>
@@ -85,7 +94,12 @@
                                             <p class="text-6xl mt-2 chiffre">{{$nbrsta}}</p>
                                         </div>
                                     </a>
-
+                                    <a  class="ok  bg-gray-200" href="{{route('services.index')}}">
+                                        <div class="m-4">
+                                            <p class="text-4xl font-semibold">Bureaux</p>
+                                            <p class="text-6xl mt-2 chiffre">{{$nbrbur}}</p>
+                                        </div>
+                                    </a>
 
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Attestation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,33 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test',function (){
+    $attestation = Attestation::with(['stagiaire', 'stage', 'bureau', 'service'])->find(3);
 
+
+    if (!$attestation) {
+        return response()->json(['error' => 'Attestation not found'], 404);
+    }
+
+
+    $attestations = Attestation::with('stagiaire.etablissement')->get();
+    $etablissements = [];
+    foreach ($attestations as $att) {
+        $etablissements[$att->stagiaire->id] = $att->stagiaire->etablissement->nom;
+    }
+
+
+    $data = [
+        'attestation' => $attestation,
+        'etablissements' => $etablissements,
+        'title' => 'Attestation',
+        'date' => date('m/d/Y')
+    ];
+    return view('pdf.generate',$data);
+});
 Route::get('/dashboard', function () {
     return view('dashboard',[
+        'nbrbur'=>\App\Models\Bureau::all()->count(),
         'nbrsta'=>\App\Models\Stagiaire::all()->count(),
         'nbrets'=>\App\Models\Etablissement::all()->count(),
         'nbrstage'=>\App\Models\Stage::all()->count(),
@@ -48,6 +73,12 @@ Route::middleware('auth')->group(function () {
     Route::put('etablissements/update/{id}',[\App\Http\Controllers\EtablissementController::class,'update'])->name('etablissements.update');
 
 
+    Route::get('/',[\App\Http\Controllers\BureauController::class,'index'])->name('stagiaires.bureau');
+    Route::delete('/bureau/{id}', [\App\Http\Controllers\BureauController::class, 'destroy'])->name('bureau.destroy');
+    Route::get('/bureau/{id}/edit', [\App\Http\Controllers\BureauController::class, 'edit'])->name('bureau.edit');
+    Route::put('/bureau/{id}', [\App\Http\Controllers\BureauController::class, 'update'])->name('bureau.update');
+    Route::get('/bureaux/create', [\App\Http\Controllers\BureauController::class, 'create'])->name('bureau.create');
+    Route::post('/bureau', [\App\Http\Controllers\BureauController::class, 'store'])->name('bureau.store');
 
 
     Route::get('/absences/index',[\App\Http\Controllers\AbscencesController::class,'index'])->name('absences.index');
@@ -58,7 +89,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/absences/{id}', [\App\Http\Controllers\AbscencesController::class, 'destroy'])->name('absences.destroy');
 
 
-
+    Route::get('/services/index',[\App\Http\Controllers\ServiceController::class,'index'])->name('services.index');
+    Route::get('/services/create',[\App\Http\Controllers\ServiceController::class,'create'])->name('services.create');
+    Route::post('/services/store',[\App\Http\Controllers\ServiceController::class,'store'])->name('services.store');
+    Route::get('/services/edit/{id}',[\App\Http\Controllers\ServiceController::class,'edit'])->name('services.edit');
+    Route::put('/services/update/{id}',[\App\Http\Controllers\ServiceController::class,'update'])->name('services.update');
+    Route::delete('/services/{id}', [\App\Http\Controllers\ServiceController::class, 'destroy'])->name('services.destroy');
 
     Route::get('/generate-pdf/{id}', [\App\Http\Controllers\AttestationController::class, 'generatePDF'])->name('generate');
     Route::post('/filtersta',[\App\Http\Controllers\StagiaireController::class,'search'])->name('filtersta');
@@ -75,6 +111,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/Attestations',[\App\Http\Controllers\AttestationController::class,'index'])->name('Attestations') ;
+    Route::delete('/attestations/{id}',[\App\Http\Controllers\AttestationController::class,'destroy'])->name('attestations.destroy');
 
     Route::post('/attestations/{id}/update-statut', [\App\Http\Controllers\AttestationController::class, 'updateStatut'])->name('update_attestation_statut');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

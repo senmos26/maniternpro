@@ -65,17 +65,15 @@ class StagiaireController extends Controller
      */
     public function store(StagiaireRequest $request)
     {
-        // Valider les données de la requête
+
         $validatedData = $request->validated();
 
-        // Enregistrer le stagiaire
         $stagiaire = new Stagiaire($validatedData);
         $stagiaire->save();
 
-        // Enregistrer le fichier CV
+
         $path = $request->file('cv')->store('public/cvs');
 
-        // Créer une nouvelle instance de CV avec l'ID du nouveau stagiaire
         $cv = new CV();
         $cv->stagiaire_id = $stagiaire->id;
         $cv->url = $path;
@@ -116,22 +114,28 @@ class StagiaireController extends Controller
     {
         $stagiaire = Stagiaire::findOrFail($id);
         $validated = $request->validated();
+
         if ($request->hasFile('cv')) {
-            // delete image
-            Storage::disk('public')->delete($stagiaire->cv);
 
-            $filePath = Storage::disk('public')->put('public/cvs', request()->file('cv'), 'public');
-            $validated['cv'] = $filePath;
+            if ($stagiaire->cv) {
+                Storage::disk('public')->delete($stagiaire->cv->url);
+                $stagiaire->cv->delete();
+            }
+
+
+            $filePath = $request->file('cv')->store('public/cvs');
+            $cv = new CV();
+            $cv->stagiaire_id = $stagiaire->id;
+            $cv->url = $filePath;
+            $cv->save();
         }
-        $update = $stagiaire->update($validated);
-        if($update) {
-            session()->flash('notif.success', 'Post updated successfully!');
-            return redirect()->route('Stagiaires')->with('success', 'Stagiaire modifié avec succès.');
-        }
-        return  abort(500);
 
 
+        $stagiaire->update($validated);
+
+        return redirect()->route('Stagiaires')->with('success', 'Stagiaire modifié avec succès.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -146,21 +150,20 @@ class StagiaireController extends Controller
                 Storage::disk('public')->delete($cvPath);
             }
 
-            // Supprimer les enregistrements correspondants dans la table 'cvs'
             $stagiaire->cv()->delete();
 
 
 
-            // Supprimer le stagiaire
+           
             $stagiaire->delete();
 
-            // Redirection avec un message de succès
+
             return redirect()->route('Stagiaires')->with('success', 'Stagiaire supprimé avec succès.');
         }catch (QueryException $e) {
-            // Gestion de l'erreur d'intégrité de contrainte
+
             return redirect()->route('Stagiaires')->with('error', 'Impossible de supprimer le stagiaire. Veuillez d\'abord supprimer les enregistrements associés.');
         }
-        // Rechercher le stagiaire à supprimer
+
 
 
     }

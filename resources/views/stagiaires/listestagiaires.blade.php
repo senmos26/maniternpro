@@ -92,22 +92,29 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($stagiaires as $stagiaire)
+        @if ($stagiaires->count() > 0)
+            @foreach($stagiaires as $stagiaire)
+                <tr>
+                    <td>{{ $stagiaire->cin }}</td>
+                    <td>{{ $stagiaire->nom }}</td>
+                    <td>{{ $stagiaire->prenom }}</td>
+                    <td>{{ $stagiaire->etablissement->nom }}</td>
+                    <td>{{ $stagiaire->stage->titre_sujet }}</td>
+                    <td>
+                        <a href="#"><img src="{{ asset('icon/edit.png') }}" alt="Modifier" class="action-icon"></a> |
+                        <a href="#"><img src="{{ asset('icon/delete.png') }}" alt="Supprimer" class="action-icon"></a> |
+                        <a href="#"><img src="{{ asset('icon/side-menu.png') }}" alt="Détails" class="action-icon"></a>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr>
-                <td>{{ $stagiaire->cin }}</td>
-                <td>{{ $stagiaire->nom }}</td>
-                <td>{{ $stagiaire->prenom }}</td>
-                <td>{{ $stagiaire->etablissement->nom }}</td>
-                <td>{{ $stagiaire->stage->titre_sujet }}</td>
-                <td>
-                    <a href="#"><img src="{{ asset('icon/edit.png') }}" alt="Modifier" class="action-icon"></a> |
-                    <a href="#"><img src="{{ asset('icon/delete.png') }}" alt="Supprimer" class="action-icon"></a> |
-                    <a href="#"><img src="{{ asset('icon/side-menu.png') }}" alt="Détails" class="action-icon"></a>
-                </td>
+                <td colspan="6">Aucun stagiaire trouvé.</td>
             </tr>
-        @endforeach
+        @endif
         </tbody>
     </table>
+
 </div>
 </body>
 </html>

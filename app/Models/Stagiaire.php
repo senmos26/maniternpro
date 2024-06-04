@@ -16,6 +16,7 @@ class Stagiaire extends Model
     {
         return $this->belongsTo(Etablissement::class);
     }
+   
 
     public function stage()
     {

@@ -14,11 +14,8 @@ class StagesController extends Controller
     public function index()
     {
         $stages = Stage::all();
-        foreach ($stages as $stage) {
-            $stagestatus = $stage->statut == 1 ? "terminé" : "En cours";
-            $stage->statut = $stagestatus;
-        }
-        return view('stage.index', compact('stages', 'stagestatus'));
+
+        return view('stage.index', compact('stages', ));
     }
     public function show()
     {

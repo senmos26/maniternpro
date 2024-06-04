@@ -133,6 +133,8 @@ class AttestationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $attestation = Attestation::findOrFail($id);
+        $attestation->delete();
+        return redirect()->route('Attestations')->with('success', 'Le bureau a été supprimé avec succès');
     }
 }

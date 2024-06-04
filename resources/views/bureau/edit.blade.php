@@ -1,7 +1,8 @@
+
 <x-app-layout>
     <div class="flex h-screen bg-gray-100">
         <!-- Sidebar -->
-       @include('navbar')
+        @include('navbar')
 
         <!-- Main Content -->
         <div class="flex flex-col flex-1">
@@ -30,27 +31,28 @@
                                     <div class="w-full sm:w-2/3 lg:w-1/2 xl:w-1/3">
                                         <div class="bg-white shadow-md rounded-lg p-8">
                                             <div class="bg-green-500 text-white text-center py-2 px-4 mb-6 rounded-lg">
-                                                <h3 class="text-lg font-semibold">AJOUTER UNE ETABLISSEMENT</h3>
+                                                <h3 class="text-lg font-semibold">MODIFIER UN BUREAU</h3>
                                             </div>
-                                            <form action="{{ route('etablissements.store') }}" method="POST">
+                                            <form action="{{ route('bureau.update', $bureau->id) }}" method="POST" class="max-w-sm mx-auto bg-white p-6 rounded-lg shadow-md">
                                                 @csrf
+                                                @method('PUT')
                                                 <div class="mb-4">
-                                                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom :</label>
-                                                    <input type="text" id="nom" name="nom" placeholder="Entrez le nom de l'établissement" class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('nom') border-red-500 @enderror" value="{{ old('nom') }}">
-                                                    @error('nom')
-                                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                                    @enderror
+                                                    <label for="libelle" class="block text-gray-700 font-bold mb-2">Libellé du bureau:</label>
+                                                    <input type="text" id="libelle" name="libelle" value="{{ $bureau->libelle }}" class="form-input w-full">
                                                 </div>
                                                 <div class="mb-4">
-                                                    <label for="adresse" class="block text-sm font-medium text-gray-700">Adresse :</label>
-                                                    <input type="text" id="adresse" name="adresse" placeholder="Entrez l'adresse de l'établissement" class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('adresse') border-red-500 @enderror" value="{{ old('adresse') }}">
-                                                    @error('adresse')
-                                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                                    @enderror
+                                                    <label for="service_id" class="block text-gray-700 font-bold mb-2">Service:</label>
+                                                    <select id="service_id" name="service_id" class="form-select w-full">
+                                                        @foreach($services as $service)
+                                                            <option value="{{ $service->id }}" {{ $bureau->service->id === $service->id ? 'selected' : '' }}>
+                                                                {{ $service->libelle }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <div class="flex justify-end">
-                                                    <button type="submit" class="inline-flex items-center px-6 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 disabled:opacity-25 transition">Ajouter</button>
-                                                    <a href="{{ route('Etablissements') }}" class="ml-4 inline-flex items-center px-6 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition">Annuler</a>
+                                                <div class="flex justify-between">
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Modifier</button>
+                                                    <button type="button" onclick="window.location='{{ route("stagiaires.bureau") }}'" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Annuler</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -65,3 +67,4 @@
         </div>
     </div>
 </x-app-layout>
+

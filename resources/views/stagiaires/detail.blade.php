@@ -63,10 +63,11 @@
                                 </form>|
 
                                 @if($stagiaire->cv)
-                                    <a href="{{ Storage::url($stagiaire->cv->url) }}" target="_blank" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Voir le CV</a>
+                                    <a href="{{ Storage::url($stagiaire->cv->url) }}" target="_blank" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Voir le CV</a>
                                 @endif
 
-                                <button type="button" onclick="window.location='{{ route("Stagiaires") }}'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Retour</button>
+                                <button type="button" onclick="window.location='{{ route('Stagiaires') }}'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Retour</button>
+
                             </div>
 
 
